@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solo Founder Portfolio</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { height: 100%; margin: 0; }
+    * { box-sizing: border-box; }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .glass-input {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1.5px solid rgba(255, 255, 255, 0.6);
+      transition: all 0.3s ease;
+    }
+
+    .glass-input:focus {
+      background: rgba(255, 255, 255, 0.65);
+      border-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .blob-1 {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.6;
+      animation: float1 20s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .blob-2 {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.5;
+      animation: float2 25s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .blob-3 {
+      position: fixed;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      filter: blur(85px);
+      opacity: 0.45;
+      animation: float3 18s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(60px, -40px) scale(1.1); }
+      66% { transform: translate(-30px, 30px) scale(0.95); }
+    }
+
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-50px, 50px) scale(1.05); }
+      66% { transform: translate(40px, -20px) scale(0.9); }
+    }
+
+    @keyframes float3 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, 40px) scale(1.08); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up {
+      animation: fadeUp 0.8s ease-out forwards;
+      opacity: 0;
+    }
+
+    .fade-up-d1 { animation-delay: 0.1s; }
+    .fade-up-d2 { animation-delay: 0.25s; }
+    .fade-up-d3 { animation-delay: 0.4s; }
+    .fade-up-d4 { animation-delay: 0.55s; }
+    .fade-up-d5 { animation-delay: 0.7s; }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 56px rgba(0, 0, 0, 0.12);
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .service-card {
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .cta-btn {
+      transition: all 0.3s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .stat-number {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .scroll-wrapper {
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      padding: 12px 28px;
+      border-radius: 12px;
+      z-index: 1000;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .toast-msg.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full" style="margin: 0; font-family: 'Outfit', sans-serif;"><!-- Animated background blobs -->
+  <div class="blob-1" id="blob1" style="top: -10%; left: -5%; background: #fcd6e0;"></div>
+  <div class="blob-2" id="blob2" style="top: 40%; right: -8%; background: #c4e0f9;"></div>
+  <div class="blob-3" id="blob3" style="bottom: -5%; left: 20%; background: #fde9c8;"></div><!-- Background -->
+  <div id="bgLayer" class="scroll-wrapper" style="position: relative; z-index: 1; background: linear-gradient(135deg, #fef6f0 0%, #f0f4ff 40%, #fdf2f8 70%, #f0fdf4 100%);"><!-- Navigation -->
+   <nav class="glass-nav sticky top-0 z-50 fade-up">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+     <div class="flex items-center gap-3">
+      <div id="navLogo" class="w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg" style="background: linear-gradient(135deg, #1a73e8, #4285f4);">
+       A
+      </div><span id="navBrand" class="font-bold text-xl tracking-tight" style="font-family: 'Poppins', sans-serif; color: #0f172a;">Arqnode Studio</span>
+     </div>
+     <div class="hidden md:flex items-center gap-10"><a href="#home" class="nav-link text-sm font-semibold transition-colors" style="color: #1e293b;">Home</a> <a href="#about" class="nav-link text-sm font-semibold transition-colors" style="color: #1e293b;">About</a> <a href="#services" class="nav-link text-sm font-semibold transition-colors" style="color: #1e293b;">Services</a> <a href="#contact" class="nav-link text-sm font-semibold transition-colors" style="color: #1e293b;">Contact</a>
+     </div><button id="mobileMenuBtn" class="md:hidden p-2.5 rounded-xl glass-card hover:bg-white/40 transition-all" aria-label="Open menu"> <i data-lucide="menu" style="width:20px;height:20px;color:#1e293b;"></i> </button>
+    </div><!-- Mobile menu -->
+    <div id="mobileMenu" class="hidden md:hidden px-6 pb-6">
+     <div class="glass-card rounded-2xl p-5 flex flex-col gap-3 backdrop-blur-lg border border-white/60"><a href="#home" class="text-sm font-semibold py-3 px-4 rounded-lg hover:bg-white/30 transition-all" style="color: #1e293b;">Home</a> <a href="#about" class="text-sm font-semibold py-3 px-4 rounded-lg hover:bg-white/30 transition-all" style="color: #1e293b;">About</a> <a href="#services" class="text-sm font-semibold py-3 px-4 rounded-lg hover:bg-white/30 transition-all" style="color: #1e293b;">Services</a> <a href="#contact" class="text-sm font-semibold py-3 px-4 rounded-lg hover:bg-white/30 transition-all" style="color: #1e293b;">Contact</a>
+     </div>
+    </div>
+   </nav><!-- Hero Section -->
+   <section id="home" class="max-w-6xl mx-auto px-6 py-16 md:py-24">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+     <div>
+      <p class="fade-up fade-up-d1 text-xs font-semibold tracking-widest uppercase mb-6 px-4 py-2 inline-block rounded-full glass-card" style="color: #4285f4;">Strategic Digital Solutions</p>
+      <h1 id="heroTitle" class="fade-up fade-up-d2 text-5xl md:text-6xl lg:text-7xl font-black leading-tight mb-7" style="font-family: 'Poppins', sans-serif; color: #0f172a; letter-spacing: -0.02em;">Build Your <span id="heroHighlight" style="color: #4285f4;">Digital</span> Future</h1>
+      <p id="heroTagline" class="fade-up fade-up-d3 text-lg md:text-xl mb-10 leading-relaxed max-w-lg" style="color: #475569;">We craft elegant, scalable digital experiences that help ambitious businesses reach their full potential. From concept to launch.</p>
+      <div class="fade-up fade-up-d4 flex flex-wrap gap-4"><a href="#contact" class="cta-btn inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-white font-bold shadow-lg hover:shadow-xl transition-all" style="background: linear-gradient(135deg, #1a73e8, #4285f4);"> <i data-lucide="send" style="width:20px;height:20px;"></i> Start Your Project </a> <a href="#services" class="cta-btn inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold glass-card border border-white/60 hover:bg-white/60 transition-all" style="color: #1e293b;"> <i data-lucide="arrow-right" style="width:20px;height:20px;"></i> Explore Services </a>
+      </div>
+     </div>
+     <div class="fade-up fade-up-d5 flex justify-center">
+      <div class="glass-card rounded-3xl p-8 w-full max-w-sm">
+       <div class="flex flex-col items-center text-center">
+        <div id="avatarCircle" class="w-32 h-32 rounded-full flex items-center justify-center mb-7 shadow-xl" style="background: linear-gradient(135deg, #1a73e8, #4285f4);"><i data-lucide="user" style="width:56px;height:56px;color:white;"></i>
+        </div>
+        <h2 id="founderNameDisplay" class="text-2xl font-bold mb-2" style="font-family: 'Poppins', sans-serif; color: #0f172a;">Adity Patil</h2>
+        <p class="text-sm font-semibold mb-8" style="color: #64748b;">Founder &amp; Creative Director</p>
+        <div class="w-full grid grid-cols-3 gap-4">
+         <div class="glass-card rounded-xl p-4 text-center border border-white/60">
+          <p class="stat-number text-2xl font-bold" style="color: #4285f4;">10+</p>
+          <p class="text-xs mt-2 font-medium" style="color: #64748b;">Years</p>
+         </div>
+         <div class="glass-card rounded-xl p-4 text-center border border-white/60">
+          <p class="stat-number text-2xl font-bold" style="color: #4285f4;">200+</p>
+          <p class="text-xs mt-2 font-medium" style="color: #64748b;">Projects</p>
+         </div>
+         <div class="glass-card rounded-xl p-4 text-center border border-white/60">
+          <p class="stat-number text-2xl font-bold" style="color: #4285f4;">150+</p>
+          <p class="text-xs mt-2 font-medium" style="color: #64748b;">Clients</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- About Section -->
+   <section id="about" class="max-w-6xl mx-auto px-6 py-16">
+    <div class="glass-card rounded-3xl p-10 md:p-16 border border-white/70 backdrop-blur-xl">
+     <div class="flex items-center gap-4 mb-8">
+      <div class="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg" style="background: linear-gradient(135deg, #1a73e8, #4285f4);"><i data-lucide="sparkles" style="width:24px;height:24px;color:white;"></i>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold" style="font-family: 'Poppins', sans-serif; color: #0f172a;">About Arqnode Studio</h2>
+     </div>
+     <p id="aboutText" class="text-lg leading-relaxed mb-10 max-w-3xl" style="color: #475569; font-size: 1.05rem;">We're a digital innovation studio dedicated to creating transformative experiences. With a passionate team and a client-first approach, we combine strategy, design, and technology to deliver solutions that drive real business growth.</p>
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+      <div class="glass-card rounded-2xl p-6 text-center border border-white/60 hover:bg-white/50 transition-all"><i data-lucide="palette" style="width:28px;height:28px;color:#4285f4;margin:0 auto 12px;display:block;"></i>
+       <p class="text-sm font-bold" style="color: #0f172a;">Design</p>
+      </div>
+      <div class="glass-card rounded-2xl p-6 text-center border border-white/60 hover:bg-white/50 transition-all"><i data-lucide="code-2" style="width:28px;height:28px;color:#4285f4;margin:0 auto 12px;display:block;"></i>
+       <p class="text-sm font-bold" style="color: #0f172a;">Development</p>
+      </div>
+      <div class="glass-card rounded-2xl p-6 text-center border border-white/60 hover:bg-white/50 transition-all"><i data-lucide="target" style="width:28px;height:28px;color:#4285f4;margin:0 auto 12px;display:block;"></i>
+       <p class="text-sm font-bold" style="color: #0f172a;">Strategy</p>
+      </div>
+      <div class="glass-card rounded-2xl p-6 text-center border border-white/60 hover:bg-white/50 transition-all"><i data-lucide="rocket" style="width:28px;height:28px;color:#4285f4;margin:0 auto 12px;display:block;"></i>
+       <p class="text-sm font-bold" style="color: #0f172a;">Growth</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Services Section -->
+   <section id="services" class="max-w-6xl mx-auto px-6 py-16">
+    <div class="text-center mb-12">
+     <p class="text-sm font-medium tracking-wider uppercase mb-3" style="color: #e67e5a;">What I Offer</p>
+     <h2 class="text-2xl md:text-3xl font-bold" style="font-family: 'Playfair Display', serif; color: #3d3330;">My Services</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+     <div class="service-card glass-card rounded-2xl p-7">
+      <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background: rgba(230,126,90,0.15);"><i data-lucide="pen-tool" style="width:24px;height:24px;color:#e67e5a;"></i>
+      </div>
+      <h3 id="service1Title" class="text-lg font-semibold mb-3" style="color: #3d3330;">Creative Design</h3>
+      <p class="text-sm leading-relaxed" style="color: #7a706c;">Beautiful, thoughtful designs that capture your brand essence and connect with your audience on a deeper level.</p>
+     </div>
+     <div class="service-card glass-card rounded-2xl p-7">
+      <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background: rgba(230,126,90,0.15);"><i data-lucide="monitor" style="width:24px;height:24px;color:#e67e5a;"></i>
+      </div>
+      <h3 id="service2Title" class="text-lg font-semibold mb-3" style="color: #3d3330;">Web Development</h3>
+      <p class="text-sm leading-relaxed" style="color: #7a706c;">Fast, responsive, and modern websites built with the latest technologies to give you a competitive edge online.</p>
+     </div>
+     <div class="service-card glass-card rounded-2xl p-7">
+      <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background: rgba(230,126,90,0.15);"><i data-lucide="trending-up" style="width:24px;height:24px;color:#e67e5a;"></i>
+      </div>
+      <h3 id="service3Title" class="text-lg font-semibold mb-3" style="color: #3d3330;">Growth Strategy</h3>
+      <p class="text-sm leading-relaxed" style="color: #7a706c;">Data-driven strategies to scale your business, attract the right customers, and maximize your return on investment.</p>
+     </div>
+    </div>
+   </section><!-- Contact Section -->
+   <section id="contact" class="max-w-6xl mx-auto px-6 py-16 pb-24">
+    <div class="glass-card rounded-3xl p-8 md:p-12">
+     <div class="grid md:grid-cols-2 gap-10">
+      <div>
+       <p class="text-sm font-medium tracking-wider uppercase mb-3" style="color: #e67e5a;">Let's Connect</p>
+       <h2 class="text-2xl md:text-3xl font-bold mb-4" style="font-family: 'Playfair Display', serif; color: #3d3330;">Get in Touch</h2>
+       <p class="mb-8" style="color: #7a706c;">Have a project in mind? I'd love to hear about it. Drop me a message and I'll get back to you within 24 hours.</p>
+       <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-3">
+         <div class="w-10 h-10 rounded-xl flex items-center justify-center glass-card"><i data-lucide="mail" style="width:18px;height:18px;color:#e67e5a;"></i>
+         </div><span id="emailDisplay" class="text-sm" style="color: #5a504c;">hello@visionaryco.com</span>
+        </div>
+        <div class="flex items-center gap-3">
+         <div class="w-10 h-10 rounded-xl flex items-center justify-center glass-card"><i data-lucide="map-pin" style="width:18px;height:18px;color:#e67e5a;"></i>
+         </div><span class="text-sm" style="color: #5a504c;">Working remotely, worldwide</span>
+        </div>
+       </div>
+      </div>
+      <div>
+       <form id="contactForm" class="flex flex-col gap-4"><label for="nameInput" class="sr-only">Your Name</label> <input id="nameInput" type="text" placeholder="Your Name" class="glass-input rounded-xl px-5 py-3.5 text-sm outline-none focus:ring-2" style="color: #3d3330; --tw-ring-color: #e67e5a;"> <label for="emailInput" class="sr-only">Your Email</label> <input id="emailInput" type="email" placeholder="Your Email" class="glass-input rounded-xl px-5 py-3.5 text-sm outline-none focus:ring-2" style="color: #3d3330; --tw-ring-color: #e67e5a;"> <label for="messageInput" class="sr-only">Your Message</label> <textarea id="messageInput" rows="4" placeholder="Tell me about your project..." class="glass-input rounded-xl px-5 py-3.5 text-sm outline-none focus:ring-2 resize-none" style="color: #3d3330; --tw-ring-color: #e67e5a;"></textarea> <button type="submit" class="cta-btn flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl text-white font-medium" style="background: #e67e5a;"> <i data-lucide="send" style="width:18px;height:18px;"></i> Send Message </button>
+       </form>
+      </div>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="glass-nav py-6">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+     <p id="footerText" class="text-sm" style="color: #7a706c;">© 2025 Visionary Co. All rights reserved.</p>
+     <div class="flex items-center gap-4"><a href="#" class="w-9 h-9 rounded-lg glass-card flex items-center justify-center hover:scale-110 transition-transform" aria-label="Twitter"> <i data-lucide="twitter" style="width:16px;height:16px;color:#5a504c;"></i> </a> <a href="#" class="w-9 h-9 rounded-lg glass-card flex items-center justify-center hover:scale-110 transition-transform" aria-label="LinkedIn"> <i data-lucide="linkedin" style="width:16px;height:16px;color:#5a504c;"></i> </a> <a href="#" class="w-9 h-9 rounded-lg glass-card flex items-center justify-center hover:scale-110 transition-transform" aria-label="GitHub"> <i data-lucide="github" style="width:16px;height:16px;color:#5a504c;"></i> </a>
+     </div>
+    </div>
+   </footer>
+  </div><!-- Toast -->
+  <div id="toast" class="toast-msg glass-card rounded-xl text-sm font-medium" style="color: #3d3330;"><span id="toastText">Message sent!</span>
+  </div>
+  <script>
+    // Default config
+    const defaultConfig = {
+      company_name: 'Arqnode Studio',
+      founder_name: 'Adity Patil',
+      tagline: 'We craft elegant, scalable digital experiences that help ambitious businesses reach their full potential. From concept to launch.',
+      about_text: "We're a digital innovation studio dedicated to creating transformative experiences. With a passionate team and a client-first approach, we combine strategy, design, and technology to deliver solutions that drive real business growth.",
+      service_1: 'Creative Design',
+      service_2: 'Web Development',
+      service_3: 'Growth Strategy',
+      contact_email: 'contact@arqnode.com',
+      background_color: '#fef8f3',
+      surface_color: '#ffffff',
+      text_color: '#0f172a',
+      primary_action_color: '#4285f4',
+      secondary_text_color: '#64748b',
+      font_family: 'Sora',
+      font_size: 16
+    };
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      document.getElementById('toastText').textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // Contact form
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('nameInput').value.trim();
+      const email = document.getElementById('emailInput').value.trim();
+      const message = document.getElementById('messageInput').value.trim();
+      if (!name || !email || !message) {
+        showToast('Please fill in all fields');
+        return;
+      }
+      showToast('✨ Message sent successfully!');
+      this.reset();
+    });
+
+    // Mobile menu
+    document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.add('hidden');
+      });
+    });
+
+    // Apply config to UI
+    function applyConfig(config) {
+      const c = { ...defaultConfig, ...config };
+      const font = c.font_family || defaultConfig.font_family;
+      const baseSize = c.font_size || defaultConfig.font_size;
+      const baseFontStack = `${font}, 'Outfit', sans-serif`;
+      const headingStack = `'Playfair Display', ${font}, serif`;
+
+      // Company name
+      document.getElementById('navBrand').textContent = c.company_name;
+      document.getElementById('navLogo').textContent = (c.company_name || 'V')[0].toUpperCase();
+      document.getElementById('footerText').textContent = `© 2025 ${c.company_name}. All rights reserved.`;
+
+      // Founder name
+      document.getElementById('founderNameDisplay').textContent = c.founder_name;
+
+      // Tagline
+      document.getElementById('heroTagline').textContent = c.tagline;
+
+      // About
+      document.getElementById('aboutText').textContent = c.about_text;
+
+      // Services
+      document.getElementById('service1Title').textContent = c.service_1;
+      document.getElementById('service2Title').textContent = c.service_2;
+      document.getElementById('service3Title').textContent = c.service_3;
+
+      // Email
+      document.getElementById('emailDisplay').textContent = c.contact_email;
+
+      // Colors
+      const bg = c.background_color;
+      const primary = c.primary_action_color;
+      const textCol = c.text_color;
+      const secText = c.secondary_text_color;
+
+      document.getElementById('bgLayer').style.background = `linear-gradient(135deg, ${bg} 0%, #f0f4ff 40%, #fdf2f8 70%, #f0fdf4 100%)`;
+
+      // Primary action color elements
+      document.getElementById('navLogo').style.background = primary;
+      document.getElementById('heroHighlight').style.color = primary;
+      document.getElementById('avatarCircle').style.background = `linear-gradient(135deg, ${primary}, ${primary}aa)`;
+
+      // All stat numbers
+      document.querySelectorAll('.stat-number').forEach(el => el.style.color = primary);
+
+      // Service icon backgrounds
+      document.querySelectorAll('.service-card > div:first-child').forEach(el => {
+        el.style.background = `${primary}22`;
+      });
+
+      // CTA buttons
+      document.querySelectorAll('.cta-btn').forEach(btn => {
+        if (btn.style.background && !btn.classList.contains('glass-card')) {
+          btn.style.background = primary;
+        }
+      });
+
+      // Text colors
+      document.getElementById('navBrand').style.color = textCol;
+      document.getElementById('heroTitle').style.color = textCol;
+      document.getElementById('founderNameDisplay').style.color = textCol;
+
+      // Secondary text
+      document.getElementById('heroTagline').style.color = secText;
+
+      // Fonts
+      document.body.style.fontFamily = baseFontStack;
+      document.getElementById('heroTitle').style.fontFamily = headingStack;
+      document.getElementById('navBrand').style.fontFamily = headingStack;
+      document.getElementById('founderNameDisplay').style.fontFamily = headingStack;
+      document.querySelectorAll('[style*="Playfair"]').forEach(el => {
+        el.style.fontFamily = headingStack;
+      });
+
+      // Font size
+      document.getElementById('heroTitle').style.fontSize = `${baseSize * 3}px`;
+      document.getElementById('heroTagline').style.fontSize = `${baseSize * 1.1}px`;
+      document.getElementById('aboutText').style.fontSize = `${baseSize * 1.1}px`;
+      document.querySelectorAll('.service-card h3').forEach(el => el.style.fontSize = `${baseSize * 1.15}px`);
+      document.querySelectorAll('.service-card p').forEach(el => el.style.fontSize = `${baseSize * 0.875}px`);
+    }
+
+    // Element SDK init
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          applyConfig(config);
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); }
+            },
+            {
+              get: () => config.surface_color || defaultConfig.surface_color,
+              set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); }
+            },
+            {
+              get: () => config.primary_action_color || defaultConfig.primary_action_color,
+              set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); }
+            },
+            {
+              get: () => config.secondary_text_color || defaultConfig.secondary_text_color,
+              set: (v) => { config.secondary_text_color = v; window.elementSdk.setConfig({ secondary_text_color: v }); }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['company_name', config.company_name || defaultConfig.company_name],
+          ['founder_name', config.founder_name || defaultConfig.founder_name],
+          ['tagline', config.tagline || defaultConfig.tagline],
+          ['about_text', config.about_text || defaultConfig.about_text],
+          ['service_1', config.service_1 || defaultConfig.service_1],
+          ['service_2', config.service_2 || defaultConfig.service_2],
+          ['service_3', config.service_3 || defaultConfig.service_3],
+          ['contact_email', config.contact_email || defaultConfig.contact_email]
+        ])
+      });
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Nav link active highlight
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.style.setProperty('--underline-color', '#e67e5a');
+      const after = document.createElement('style');
+      after.textContent = `.nav-link::after { background: #e67e5a; }`;
+      document.head.appendChild(after);
+    });
+
+    lucide.createIcons();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dee347883653cfa',t:'MTc3Mzk0MTQyNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
